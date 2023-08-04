@@ -1,19 +1,22 @@
-var express 		= require("express"),
-	  app 				= express();
+const express = require('express');
+const bodyParser = require('body-parser');
 
-app.set("view engine", "ejs");
+const app = express();
+const port = 3000;
 
-// ==========user=============
-app.use(require("express-session")({
-	secret: "my new test app",
-	resave: false,
-	saveUninitialized: false
-}));
+app.use(bodyParser.json());
 
-app.get("/", function(req, res){
-  res.render("new");
+// POST request handler for your API endpoint
+app.post('/api/data', (req, res) => {
+  const dataArray = req.body.data;
+  
+  // Process the dataArray as needed
+  console.log('Received data:', dataArray);
+  
+  // Respond with a success message
+  res.json({ message: 'Data received successfully' });
 });
 
-app.listen(3000, function() {
-  console.log("Server running on port 3000!");
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
